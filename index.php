@@ -27,11 +27,11 @@ get_header(); ?>
 
 			<?php /* Start the Loop */ ?>
             
-            <?post while (have_posts() ) : the_post();?>
+            <?php while (have_posts() ) : the_post();?>
             <?php query_posts('posts_per_page=1'); ?>
               <?php //get_template_part('template-parts/content','littleBuddy');?> 
             
-       <?php $do_not_duplicate: ?>
+       <?php $do_not_duplicate ?>
        <?php /* The first Loop */ ?>
         <?php query_posts('tah=template');?>
                                 
@@ -58,6 +58,28 @@ $do_not_duplicate =$post->ID;
 				?>
 
 			<?php endwhile; ?>
+            
+            
+            
+            
+            <?php rewind_posts();?>
+            <?php
+             
+             $args = array('post_type'=> 'portfolio_item', 'posts_per_page' => 10);
+             $loop = new WP_Query($args);
+             while( $loop->have_posts()) : $loop->the_post();
+              the_title();
+              echo'<div class="ab-entry-content">';
+              the_content();
+              echo'</div>';
+            endwhile;
+            ?>
+ 
+
+
+
+            
+            
 
 			<?php the_posts_navigation(); ?>
 
